@@ -167,12 +167,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b021ecb01144b0e45b96f8203528cd50, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f5cc0e74e86384d48a0b20b6386a01af, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5.69, y: 3.31}
+  m_Size: {x: 90.13, y: 45.12}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -186,8 +186,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 51912434}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.027, y: -0.037, z: 0}
-  m_LocalScale: {x: 0.22391583, y: 0.22110274, z: 1}
+  m_LocalPosition: {x: -0.006, y: 0.167, z: 0}
+  m_LocalScale: {x: 0.2234662, y: 0.21414891, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -257,7 +257,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 3.1661441
+  orthographic size: 2.6959248
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

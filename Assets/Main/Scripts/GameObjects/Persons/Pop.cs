@@ -13,28 +13,34 @@ using PersonsTags = Popcorn.Metadatas.Tags.Persons;
 using ObjectsTags = Popcorn.Metadatas.Tags.Objects;
 using GameStates = Popcorn.GameObjects.Elementies.GameBehavior.GameStates;
 using System;
+using UnityEngine.UI;
 
 namespace Popcorn.GameObjects.Persons
 {
 
     public class Pop : PlayerBase
     {
-
         [SerializeField] float timeToRestatIdle = 4.5f;
         [SerializeField] float velocity = 4f;
         [SerializeField] float jumpForce = 900f;
         [SerializeField] float hitForce = 300f;
-
         float timeInStandBy = 0f;
         bool isJumping = false;
         float lastDir = Transforms.Direction.Right;
         private bool dirRight = true;
         static int points;
-        bool jumpair=false;
-
+        bool jumpair = false;
+        public Button pauseButton;
+        private int i;
+        private bool a;
         Jump jump = new Jump();
         Move move = new Move();
 
+        private void Start()
+        {
+            pauseButton.enabled = true;
+            a = true;
+        }
         void FixedUpdate()
         {
             timeInStandBy += Time.deltaTime;
@@ -44,11 +50,12 @@ namespace Popcorn.GameObjects.Persons
                 animator.SetTrigger(AnimationParameters.IdleTrigger.ToString());
                 timeInStandBy = 0;
             }
+            
         }
 
         void Update()
         {
-
+            
             if (CheckIfDontCanMove())
             {
                 timeInStandBy = 0;
@@ -66,20 +73,42 @@ namespace Popcorn.GameObjects.Persons
             {
                 ExecuteMove(Transforms.Direction.Right);
             }
-            if(Input.GetTouch(0).tapCount==1 && !isJumping)
-            {
+            
+            
+            if (i==1 && !isJumping && a == true  && !(Input.GetTouch(0).position.x > Screen.width *7.5 /8 && Input.GetTouch(0).position.y > Screen.height * 3 / 4))
+            {   
                 ExecuteJump(jumpForce);
                 jumpair = true;
+                i = 0;
             }
            
             animator.SetFloat(AnimationParameters.Velocity.ToString(), GetAbsRunVelocity());
             isJumping = !bottomColliderHelper.IsColliding;
             animator.SetBool(AnimationParameters.IsJump.ToString(), isJumping);
             CheckAliveConditions();
-            if (Input.GetTouch(0).tapCount == 2 && jumpair)
+            
+            if (i == 2 && jumpair && !(Input.GetTouch(0).position.x > Screen.width * 7.5 / 8 && Input.GetTouch(0).position.y > Screen.height * 3 / 4))
             {
                 ExecuteJump(jumpForce);
                 jumpair = false;
+            }
+            paused();
+
+        }
+
+        public void paused()
+        {
+            if (pauseButton.enabled == false)
+            {
+                i = 0;
+                a = false;
+            }
+            else
+            {
+                if (a == true)
+                    i = Input.GetTouch(0).tapCount;
+                else
+                    a = true;
             }
         }
 
@@ -200,7 +229,8 @@ namespace Popcorn.GameObjects.Persons
             spriteRenderer.sortingOrder = (int)Layers.OrdersInDefaultLayer.Max;
             //21.09.19 Raihan untuk kembali ke awal jika player mati
             yield return new WaitForSeconds(3);
-            SceneManager.LoadScene("level1");
+            GameStatus.score = 0;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
         }
 

@@ -1,9 +1,9 @@
 Android
 PlayerPath?
-C:/Users/asus/Downloads/rev5.apk
+C:/Users/asus/Downloads/rev0.7.apk
 SceneListBegin?
 Assets/Scenes/menu.unity
-Assets/Scenes/level1.unity
+Assets/Scenes/level1b.unity
 SceneListEnd?
 993508cd1c351d81a647f0ba289dc14e Assembly-CSharp.dll:Popcorn.GameObjects.Persons.ZombiePop
 984dcc0ba3707b7691fbdca8ff508d28 Unity.TextMeshPro.dll:TMPro.TMP_SelectionCaret
@@ -193,6 +193,7 @@ fbbf64dcbe0662e3eda1dec45ea8f895 Vuforia.UnityExtensions.dll:Vuforia.WireframeBe
 c0eb2b0479e387ee36645e1d57487d18 Assembly-CSharp.dll:.points
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:Popcorn.GameObjects.Helpers.WeakPoint
 b3ab2106268377ffe25dd18ac23dca28 Unity.TextMeshPro.dll:TMPro.TMP_Asset
+5b3e697546ee8ddc7df6903eaf8123e8 Assembly-CSharp.dll:.pausee
 71bb6a6b6c8f052f948db64c7dd3ca4f Unity.Analytics.Editor.dll:UnityEditor.Analytics.AnalyticsEventTrackerEditor
 71bb6a6b6c8f052f948db64c7dd3ca4f Unity.TextMeshPro.dll:TMPro.TMP_SpriteAnimator
 b17c6919d7321ddbed08f83bf1ee84c7 Assembly-CSharp.dll:Popcorn.Canvas.Components.Shadow
@@ -242,7 +243,7 @@ d791aa6007fa3640be1164ea75bb087d Unity.TextMeshPro.dll:TMPro.TMP_StyleSheet
 1fac97b35d92b87922a2f5078919e313 Assembly-CSharp.dll:.AScreen
 5372ed2ce39229b1ac910757999a8be2 Unity.TextMeshPro.dll:TMPro.TextMeshPro
 3165968ba45c74472d279ba04455fccb Unity.TextMeshPro.dll:TMPro.TMP_ColorGradient
-81241b76ad7c7e973ce69315fa37cb41 Assembly-CSharp.dll:Popcorn.GameObjects.Persons.Pop
+9bbc1e481682bb984096a543f8fef921 Assembly-CSharp.dll:Popcorn.GameObjects.Persons.Pop
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:Popcorn.Bases.PersonBase
 8649814970b42d345b89944b862453cc Unity.TextMeshPro.dll:TMPro.TMP_SubMesh
 0077fc8e4fbae67f80e80ebd534de5a0 Vuforia.UnityExtensions.dll:Vuforia.AnchorBehaviour
