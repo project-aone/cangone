@@ -23,19 +23,19 @@ namespace Popcorn.GameObjects.Objects
 
         void GetComponents()
         {
-            /*animator = (Animator)Getter.Component(this, gameObject, typeof(Animator));*/
+            animator = (Animator)Getter.Component(this, gameObject, typeof(Animator));
             particleSys = (ParticleSystem)Getter.Component(this, gameObject, typeof(ParticleSystem));
         }
 
         protected override void StartRun()
         {
-            /*animator.SetBool(AnimationParameters.IsPlayerNear.ToString(), true);*/
+            animator.SetBool(AnimationParameters.IsPlayerNear.ToString(), true);
             particleSys.Play();
         }
 
         protected override void StopRun()
         {
-            /*animator.SetBool(AnimationParameters.IsPlayerNear.ToString(), false);*/
+            animator.SetBool(AnimationParameters.IsPlayerNear.ToString(), false);
             particleSys.Stop();
         }
 
