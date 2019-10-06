@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "432472009872",
+    "firebase_url": "https://cangone-0826273034-aone.firebaseio.com",
+    "project_id": "cangone-0826273034-aone",
+    "storage_bucket": "cangone-0826273034-aone.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:432472009872:android:893aef599213b15aa6fc15",
+        "android_client_info": {
+          "package_name": "com.AONE.Cangone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "432472009872-u24sk6la6u2lh0rph28fs040v7818mtf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.AONE.Cangone",
+            "certificate_hash": "a1ca6072c5512e853ffec788a7a7e2ab8042eb81"
+          }
+        },
+        {
+          "client_id": "432472009872-lt7235nv7htiq7jr1bn3mqate48u3cme.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPJnF8hR-OiD2-XaM4hZ7MQlcjjg39cFU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "432472009872-lt7235nv7htiq7jr1bn3mqate48u3cme.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,47 +1,165 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Firebase;
+using Firebase.Auth;
+using Google;
+using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+
 //from Darengous Dave
-public class GameStatus : MonoBehaviour
+public class GameStatus :  MonoBehaviour
 {
-
-    ///Turn this off for PC/Mac Build
-    public static bool isDeployedToMobile = false;
-
     public static int score = 0;
-    public static int currentLevel = 1;
-    public static int lives = 3;
-    ///Jet Pack Turned on/off
-    public static bool isJetPackOn = false;
-    public static bool isJetPackPickedUp = false;
-    public static bool isGunPickedUp = false;
-    /// Amount of gas in JetPack.
-    public static float fillAmount = 1;
+    //for enabled canvas;
+    public Canvas canvasSignin;
+    public Canvas canvasMenu;
 
-    public static float fireRate = 0.5f;
-    public static float nextFire = 0.1f;
+    //for sign in to google;
+    public Text infoText;
+    public string webClientId = "<Your client id here>";
 
-    public static bool allowToFire = false;
+    private FirebaseAuth auth;
+    private GoogleSignInConfiguration configuration;
+    public void Start()
+    {
+        canvasSignin.enabled = true;
+        canvasMenu.enabled = false;
+    }
+    private void Awake()
+    {
+        configuration = new GoogleSignInConfiguration { WebClientId = webClientId, RequestEmail = true, RequestIdToken = true };
 
-    //UIButtonsControls for JetPack
-    public static bool isJetUpButtonPressed = false;
-    public static bool isJetDownButtonPressed = false;
+    }
+    private void CheckFirebaseDependencies()
+    {
+        FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
+        {
+            if (task.IsCompleted)
+            {
+                if (task.Result == DependencyStatus.Available)
+                {
+                    auth = FirebaseAuth.DefaultInstance;
+                }
+                else
+                {
+                    AddToInformation("Could not resolve all firebase dependencies" + task.Result.ToString());
+                }
+            }
+            else
+            {
+                AddToInformation("Dependency check was not complete. Error :" + task.Exception.Message);
+            }
+        });
+    }
+    public void SignInWithGoogle() { OnSignIn(); }
+    public void SignOutFromGoogle() { OnSignOut(); }
 
-    public static bool isJetLeftButtonPressed = false;
-    public static bool isJetRightButtonPressed = false;
+    private void OnSignIn()
+    {
+        GoogleSignIn.Configuration = configuration;
+        GoogleSignIn.Configuration.UseGameSignIn = false;
+        GoogleSignIn.Configuration.RequestIdToken = true;
+        AddToInformation("Calling SignIn");
 
-    public static bool isAltButtonPressed = false;
-    ///Check if we on the ground to prevent double jump
-    public static bool isGrounded = false;
-    public static bool isEnemyFrozen = false;
-    public static bool isRichedTrigger = false;
+        GoogleSignIn.DefaultInstance.SignIn().ContinueWith(OnAuthentificationFinished);
+    }
 
+    private void OnSignOut()
+    {
+        AddToInformation("Calling SignOut");
+        GoogleSignIn.DefaultInstance.SignOut();
+    }
+    public void OnDisconnect()
+    {
+        AddToInformation("Calling Disconnect");
+        GoogleSignIn.DefaultInstance.Disconnect();
+    }
+
+    internal void OnAuthentificationFinished(Task<GoogleSignInUser> task)
+    {
+        if(task.IsFaulted)
+        {
+            using (IEnumerator<Exception> enumerator=task.Exception.InnerExceptions.GetEnumerator())
+            {
+                if(enumerator.MoveNext())
+                {
+                    GoogleSignIn.SignInException error = (GoogleSignIn.SignInException)enumerator.Current;
+                    AddToInformation("Got Error: " + error.Status + " " + error.Message);
+                }
+                else
+                {
+                    AddToInformation("Got Unexpected Exception?!?" + task.Exception);
+                }
+            }
+        }
+        else if(task.IsCanceled)
+        {
+            AddToInformation("Canceled");
+        }
+        else
+        {
+            AddToInformation("Welcome: " + task.Result.DisplayName + "!");
+            AddToInformation("Email= " + task.Result.Email);
+            AddToInformation("Google ID Token= " + task.Result.IdToken);
+            AddToInformation("Email= "+task.Result.Email);
+            SignInWithGoogleOnFirebase(task.Result.IdToken);
+        }
+    }
+    private void SignInWithGoogleOnFirebase(string idToken)
+    {
+        Credential credential = GoogleAuthProvider.GetCredential(idToken, null);
+        auth.SignInWithCredentialAsync(credential).ContinueWith(task =>
+        {
+            AggregateException ex = task.Exception;
+            if (ex != null)
+            {
+                if (ex.InnerExceptions[0] is FirebaseException inner && (inner.ErrorCode != 0))
+                {
+                    AddToInformation("\nError Code= " + inner.ErrorCode + "Massage" + inner.Message);
+                }
+            }
+            else
+            {
+                AddToInformation("SignIn Successful.");
+            }
+        });
+    }
+
+    public void OnSignInSilently()
+    {
+        GoogleSignIn.Configuration = configuration;
+        GoogleSignIn.Configuration.UseGameSignIn = false;
+        GoogleSignIn.Configuration.RequestIdToken = true;
+        AddToInformation("Calling SignIn Silently");
+
+        GoogleSignIn.DefaultInstance.SignInSilently().ContinueWith(OnAuthentificationFinished);
+    }
+
+    public void OnGamesSignIn()
+    {
+        GoogleSignIn.Configuration = configuration;
+        GoogleSignIn.Configuration.UseGameSignIn = true;
+        GoogleSignIn.Configuration.RequestIdToken = false;
+
+        AddToInformation("Calling Games SignIn");
+
+        GoogleSignIn.DefaultInstance.SignIn().ContinueWith(OnAuthentificationFinished);
+    }
+
+    private void AddToInformation(string str) { infoText.text += "\n" + str; }
     //Game version 4.2 
     //Last changes 10/28/2016
 
     public void NewGameButtonPressed()
     {
         ApplySettingsForLevel(1);
+    }
+    public void Leaderboard()
+    {
+        SceneManager.LoadScene("leaderboard");
     }
 
     public void GoToLevel_2()
@@ -67,11 +185,7 @@ public class GameStatus : MonoBehaviour
     ///apply settings for chosen level
     private void ApplySettingsForLevel(int level)
     {
-        GameStatus.lives = 3;
-        GameStatus.currentLevel = level;
-        GameStatus.fillAmount = 1;
-        GameStatus.isGunPickedUp = false;
-        GameStatus.score = 0;
+
         SceneManager.LoadScene("level1b");
     }
 
