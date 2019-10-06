@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using PersonsTags = Popcorn.Metadatas.Tags.Persons;
 
 namespace Popcorn.GameObjects.Objects
@@ -8,12 +9,18 @@ namespace Popcorn.GameObjects.Objects
     {
 
         [HideInInspector] public bool WasReachedTheEnd { get; private set; }
-
-        void Awake() { WasReachedTheEnd = false; }
+        
+        void Awake()
+        {
+            WasReachedTheEnd = false;
+        }
 
         void OnTriggerEnter2D(Collider2D otherCollider2D)
         {
-            if (otherCollider2D.CompareTag(PersonsTags.Player.ToString())) { WasReachedTheEnd = true; }
+            if (otherCollider2D.CompareTag(PersonsTags.Player.ToString()))
+            {
+                WasReachedTheEnd = true;
+            }
         }
 
     }
