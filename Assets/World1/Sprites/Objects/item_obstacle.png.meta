@@ -2,8 +2,8 @@ fileFormatVersion: 2
 guid: 063881499cde88e4f96b0b15d16b5800
 TextureImporter:
   fileIDToRecycleName:
-    21300000: item_obstacle_0
-    21300002: item_obstacle_1
+    21300000: key
+    21300002: heart
     21300004: item_obstacle_2
     21300006: item_obstacle_3
     21300008: item_obstacle_4
@@ -12,9 +12,10 @@ TextureImporter:
     21300014: item_obstacle_7
     21300016: item_obstacle_8
     21300018: item_obstacle_9
-    21300020: item_obstacle_10
+    21300020: flower
     21300022: item_obstacle_11
     21300024: item_obstacle_12
+    21300026: item_obstacle_13
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -119,7 +120,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: item_obstacle_0
+      name: key
       rect:
         serializedVersion: 2
         x: 27
@@ -127,7 +128,7 @@ TextureImporter:
         width: 761
         height: 632
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -139,7 +140,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: item_obstacle_1
+      name: heart
       rect:
         serializedVersion: 2
         x: 907
@@ -147,7 +148,7 @@ TextureImporter:
         width: 760
         height: 632
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -167,7 +168,7 @@ TextureImporter:
         width: 1175
         height: 974
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -187,7 +188,7 @@ TextureImporter:
         width: 845
         height: 845
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -207,7 +208,7 @@ TextureImporter:
         width: 1053
         height: 1053
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -222,12 +223,12 @@ TextureImporter:
       name: item_obstacle_5
       rect:
         serializedVersion: 2
-        x: 6565
+        x: 6557
         y: 0
         width: 2090
         height: 4244
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -247,7 +248,7 @@ TextureImporter:
         width: 754
         height: 638
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -267,7 +268,7 @@ TextureImporter:
         width: 642
         height: 638
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -287,7 +288,7 @@ TextureImporter:
         width: 1669
         height: 921
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -307,7 +308,7 @@ TextureImporter:
         width: 1179
         height: 1179
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -319,7 +320,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: item_obstacle_10
+      name: flower
       rect:
         serializedVersion: 2
         x: 44
@@ -327,7 +328,7 @@ TextureImporter:
         width: 634
         height: 634
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -347,7 +348,7 @@ TextureImporter:
         width: 649
         height: 638
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -367,13 +368,33 @@ TextureImporter:
         width: 2107
         height: 1443
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: 753219fbf741fc545826664bdfe3a779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: item_obstacle_13
+      rect:
+        serializedVersion: 2
+        x: 8493
+        y: 1189
+        width: 78
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2acad23010ea150448ed3a1c9bbadde4
       vertices: []
       indices: 
       edges: []

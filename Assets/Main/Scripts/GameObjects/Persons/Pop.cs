@@ -24,6 +24,9 @@ namespace Popcorn.GameObjects.Persons
         [SerializeField] float velocity = 4f;
         [SerializeField] float jumpForce = 900f;
         [SerializeField] float hitForce = 300f;
+        public GameObject startpoint;
+        public GameObject playerpoint;
+
         float timeInStandBy = 0f;
         bool isJumping = false;
         float lastDir = Transforms.Direction.Right;
@@ -93,9 +96,9 @@ namespace Popcorn.GameObjects.Persons
                 jumpair = false;
             }
             paused();
-
         }
 
+        //Rayhan & win, 22/09/2019 for fixing bug in pause
         public void paused()
         {
             if (pauseButton.enabled == false)
@@ -154,8 +157,11 @@ namespace Popcorn.GameObjects.Persons
             if (otherCollider2D.gameObject.CompareTag(PersonsTags.Enemy.ToString()))
             {
                 ContactPoint2D contactPoint2D = otherCollider2D.contacts[0];
-
-                if (!contactPoint2D.collider.CompareTag(HelpersTags.WeakPoint.ToString())) { Kill(jumpForce);}
+                //Win, 23/09/2019, condition changed
+                if (!contactPoint2D.collider.CompareTag(HelpersTags.WeakPoint.ToString()) && GameStatus.lives>1)
+                        { lifeagain(); }
+                else if (!contactPoint2D.collider.CompareTag(HelpersTags.WeakPoint.ToString()) && GameStatus.lives==1)
+                        { Kill(jumpForce); }
                 else { ExecuteJump(jumpForce - 50);}
 
             }
@@ -206,6 +212,7 @@ namespace Popcorn.GameObjects.Persons
                 IsAlive = false;
                 animator.SetBool(AnimationParameters.IsAlive.ToString(), IsAlive);
                 StartCoroutine(KillAnimation(forceToUp));
+                GameStatus.lives--;
             }
         }
 
@@ -230,8 +237,14 @@ namespace Popcorn.GameObjects.Persons
             //21.09.19 Raihan untuk kembali ke awal jika player mati
             yield return new WaitForSeconds(3);
             GameStatus.score = 0;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
 
+        //Win, 23/09/209, change player position back to start
+        void lifeagain()
+        {
+            playerpoint.transform.position = new Vector2(startpoint.transform.position.x, startpoint.transform.position.y);
+            base.Awake();
+            GameStatus.lives--;
         }
 
         void Hit()
