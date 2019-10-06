@@ -12,6 +12,7 @@ using PersonsTags = Popcorn.Metadatas.Tags.Persons;
 using ElementiesTags = Popcorn.Metadatas.Tags.Elementies;
 using UIElementiesTags = Popcorn.Metadatas.Tags.UIElementies;
 
+
 namespace Popcorn.GameObjects.Elementies
 {
 
