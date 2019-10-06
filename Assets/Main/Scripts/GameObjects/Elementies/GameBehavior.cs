@@ -24,9 +24,10 @@ namespace Popcorn.GameObjects.Elementies
 
         [SerializeField] Times.ScenesTimes scenesTime = Times.ScenesTimes.Normal;
         [SerializeField] Text timeScreen;
-        [SerializeField] Text pointScreen;
+
         PlayerBase player;
         EndPoint endPoint;
+
         float time;
         float alertTime = 30;
         bool inAlertTime = false;
@@ -126,8 +127,6 @@ namespace Popcorn.GameObjects.Elementies
             }
         }
 
- 
-        
         void CountingTime() { time -= UnityEngine.Time.deltaTime; }
 
         void CheckTime()
@@ -143,11 +142,7 @@ namespace Popcorn.GameObjects.Elementies
             AudioManager.Instance.PlaySoundOnce(caller: this, sound: timeOutAudioSource);
         }
 
-        void SetTimeInScreen()
-        {
-            timeScreen.text = ((int)time).ToString();
-            pointScreen.text = GameStatus.score.ToString();
-        }
+        void SetTimeInScreen() { timeScreen.text = ((int)time).ToString(); }
 
         bool IsGameFinished()
         {
