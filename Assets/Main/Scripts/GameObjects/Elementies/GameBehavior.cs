@@ -24,7 +24,7 @@ namespace Popcorn.GameObjects.Elementies
 
         [SerializeField] Times.ScenesTimes scenesTime = Times.ScenesTimes.Normal;
         [SerializeField] Text timeScreen;
-
+        [SerializeField] Text pointScreen;
         PlayerBase player;
         EndPoint endPoint;
 
@@ -142,7 +142,11 @@ namespace Popcorn.GameObjects.Elementies
             AudioManager.Instance.PlaySoundOnce(caller: this, sound: timeOutAudioSource);
         }
 
-        void SetTimeInScreen() { timeScreen.text = ((int)time).ToString(); }
+        void SetTimeInScreen()
+        {
+            timeScreen.text = ((int)time).ToString();
+            pointScreen.text = GameStatus.score.ToString();
+        }
 
         bool IsGameFinished()
         {

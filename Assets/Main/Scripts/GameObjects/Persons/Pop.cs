@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using Popcorn.Bases;
 using Popcorn.Managers;
 using Popcorn.Metadatas;
@@ -11,6 +12,7 @@ using HelpersTags = Popcorn.Metadatas.Tags.Helpers;
 using PersonsTags = Popcorn.Metadatas.Tags.Persons;
 using ObjectsTags = Popcorn.Metadatas.Tags.Objects;
 using GameStates = Popcorn.GameObjects.Elementies.GameBehavior.GameStates;
+using System;
 
 namespace Popcorn.GameObjects.Persons
 {
@@ -27,6 +29,8 @@ namespace Popcorn.GameObjects.Persons
         bool isJumping = false;
         float lastDir = Transforms.Direction.Right;
         private bool dirRight = true;
+        static int points;
+        bool jumpair=false;
 
         Jump jump = new Jump();
         Move move = new Move();
@@ -62,17 +66,21 @@ namespace Popcorn.GameObjects.Persons
             {
                 ExecuteMove(Transforms.Direction.Right);
             }
-            int i = 0;
-            while(i<Input.touchCount && !isJumping && Input.touchCount<2 && Input.touchCount >0)
+            if(Input.GetTouch(0).tapCount==1 && !isJumping)
             {
                 ExecuteJump(jumpForce);
-                i++;
+                jumpair = true;
             }
-
+           
             animator.SetFloat(AnimationParameters.Velocity.ToString(), GetAbsRunVelocity());
             isJumping = !bottomColliderHelper.IsColliding;
             animator.SetBool(AnimationParameters.IsJump.ToString(), isJumping);
             CheckAliveConditions();
+            if (Input.GetTouch(0).tapCount == 2 && jumpair)
+            {
+                ExecuteJump(jumpForce);
+                jumpair = false;
+            }
         }
 
         void ExecuteMove(float dir)
@@ -118,14 +126,20 @@ namespace Popcorn.GameObjects.Persons
             {
                 ContactPoint2D contactPoint2D = otherCollider2D.contacts[0];
 
-                if (!contactPoint2D.collider.CompareTag(HelpersTags.WeakPoint.ToString())) { Kill(jumpForce); }
-                else { ExecuteJump(jumpForce - 50); }
+                if (!contactPoint2D.collider.CompareTag(HelpersTags.WeakPoint.ToString())) { Kill(jumpForce);}
+                else { ExecuteJump(jumpForce - 50);}
 
             }
             else if (otherCollider2D.gameObject.CompareTag(ObjectsTags.Hit.ToString()))
             {
                 Hit();
             }
+            else if (otherCollider2D.gameObject.tag == "clover")
+            {
+                Pop.points += 1;
+                Destroy(gameObject);
+            }
+                
         }
 
         void OnCollisionStay2D(Collision2D otherCollider2D)
@@ -166,6 +180,11 @@ namespace Popcorn.GameObjects.Persons
             }
         }
 
+        private void WaitForSeconds(int v)
+        {
+            throw new NotImplementedException();
+        }
+
         IEnumerator KillAnimation(float forceToUp)
         {
             yield return new WaitForSeconds(Times.Waits.Minimun);
@@ -179,6 +198,10 @@ namespace Popcorn.GameObjects.Persons
             , Transforms.Scale.NormalPlus);
 
             spriteRenderer.sortingOrder = (int)Layers.OrdersInDefaultLayer.Max;
+            //21.09.19 Raihan untuk kembali ke awal jika player mati
+            yield return new WaitForSeconds(3);
+            SceneManager.LoadScene("level1");
+
         }
 
         void Hit()
@@ -200,6 +223,7 @@ namespace Popcorn.GameObjects.Persons
                 rb.velocity = Vector2.zero;
                 rb.AddForce(vectorHit);
                 StartCoroutine(EndHitAnimation(timeInWait));
+   
             }
         }
 
@@ -207,6 +231,7 @@ namespace Popcorn.GameObjects.Persons
         {
             yield return new WaitForSeconds(waitTime);
             animator.SetBool(AnimationParameters.Hit.ToString(), false);
+            
         }
 
     }
