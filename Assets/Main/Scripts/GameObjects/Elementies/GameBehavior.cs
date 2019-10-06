@@ -27,7 +27,6 @@ namespace Popcorn.GameObjects.Elementies
         [SerializeField] Text pointScreen;
         PlayerBase player;
         EndPoint endPoint;
-
         float time;
         float alertTime = 30;
         bool inAlertTime = false;
@@ -127,6 +126,8 @@ namespace Popcorn.GameObjects.Elementies
             }
         }
 
+ 
+        
         void CountingTime() { time -= UnityEngine.Time.deltaTime; }
 
         void CheckTime()

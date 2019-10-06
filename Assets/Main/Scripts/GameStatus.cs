@@ -72,7 +72,7 @@ public class GameStatus : MonoBehaviour
         GameStatus.fillAmount = 1;
         GameStatus.isGunPickedUp = false;
         GameStatus.score = 0;
-        SceneManager.LoadScene("level1");
+        SceneManager.LoadScene("level1b");
     }
 
     public void GoToLevelSelectionScreen()
