@@ -13,6 +13,7 @@ public class points : MonoBehaviour
     {
     }
 
+    //Win, 16/09/2019 for points
     void OnTriggerEnter2D(Collider2D hit)
     {
 

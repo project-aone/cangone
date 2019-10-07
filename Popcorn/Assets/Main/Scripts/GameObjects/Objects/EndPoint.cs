@@ -13,6 +13,7 @@ namespace Popcorn.GameObjects.Objects
         void Awake()
         {
             WasReachedTheEnd = false;
+            
         }
 
         void OnTriggerEnter2D(Collider2D otherCollider2D)
