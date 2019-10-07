@@ -5,6 +5,7 @@ using Proyecto26;
 using UnityEngine.UI;
 using GameBehavior= Popcorn.GameObjects.Elementies.GameBehavior;
 using Popcorn.GameObjects.Objects;
+
 public class pausee : MonoBehaviour
 {
     //for showing score and kill at the end of the game
@@ -15,46 +16,39 @@ public class pausee : MonoBehaviour
 
     //pause object
     public Canvas PauseCanvas;
-    public Canvas DBcanvas;
     public Canvas OverCanvas;
+    public Canvas DieCanvas;
     public Button PauseButton;
 
     private bool paused = false;
     public static bool overd;
-
-    //score object
-    public InputField playertext;
-    public Text Scoretext;
-    public static int playerscore;
-    public static string playername;
+    public static bool die;
 
     //lives object
     public List<Image> lives = new List<Image>(3);
     public List<Image> stars = new List<Image>(3);
 
+    //show point and kill at the end of the game
+    [SerializeField] Text pointShow;
+    [SerializeField] Text killShow;
 
     //initialitation
     private void Start()
     {
         //Win, 22/09/2019, for pause
         PauseCanvas.enabled = false;
-        DBcanvas.enabled = false;
         OverCanvas.enabled=false;
         PauseButton.enabled = true;
+        DieCanvas.enabled = false;
         overd = false;
+        die = false;
 
         over();
     }
     void Update()
     {
-        //Rayhan, 22/09/2019 for add data
-        if(GameBehavior.GameState==GameBehavior.GameStates.Ended && GameStatus.lives==0)
-        {
-            DBcanvas.enabled = true;
-            playerscore = GameStatus.score;
-            Scoretext.text = "Your Score: " + playerscore;
-
-        }
+        over();
+        
         //Win, 23/09/2019 for showing live object
         switch (GameStatus.lives)
         {
@@ -72,19 +66,7 @@ public class pausee : MonoBehaviour
                 break;
         }
 
-        over();
-    }
-
-    public void OnSumbit()
-    {
-        playername = playertext.text;
-        PostToDatabase();
-    }
-
-    private void PostToDatabase()
-    {
-        Users user = new Users();
-        RestClient.Put(url:"https://cangone-0826273034.firebaseio.com/"+playername+".json", user);
+       
     }
 
     //Rayhan & win, 22/09/2019, for pause
@@ -92,7 +74,6 @@ public class pausee : MonoBehaviour
     {
         if (paused)
         {
-            
             PauseCanvas.enabled = false;
             Time.timeScale = 1;
             paused = false;
@@ -108,9 +89,9 @@ public class pausee : MonoBehaviour
         
     }
 
-    public void over()
+    void over()
     {
-        if (overd)
+        if (overd || die)
         {
             StartCoroutine("waitForSec");
         }
@@ -119,19 +100,39 @@ public class pausee : MonoBehaviour
     IEnumerator waitForSec()
     {
         yield return new WaitForSeconds(4);
-        OverCanvas.enabled = true;
+        if (overd)
+        {
+            OverCanvas.enabled = true;
+            countStars();
+            showScoreKill();
+        }
+        else if(die)
+        {
+            DieCanvas.enabled = true;
+        }
+
         PauseCanvas.enabled = false;
         PauseButton.enabled = false;
-        countStars();
+        
     }
 
     void countStars()
     {
-     if(GameStatus.kill < 4 && GameStatus.score < 5)
+        if(GameStatus.kill < 4 && GameStatus.score < 5)
         {
             Destroy(stars[2]);
             stars.RemoveAt(2);
-        }  
+        }
+        if(GameStatus.kill < 2 && GameStatus.score<2)
+        {
+            Destroy(stars[1]);
+            stars.RemoveAt(1);
+        }
     }
     
+    public void showScoreKill()
+    {
+        pointShow.text = GameStatus.score.ToString();
+        killShow.text = GameStatus.kill.ToString();
+    }
 }

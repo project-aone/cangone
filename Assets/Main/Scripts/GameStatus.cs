@@ -64,6 +64,10 @@ public class GameStatus : MonoBehaviour
     {
         Application.Quit();
     }
+    public void info()
+    {
+        SceneManager.LoadScene("Info");
+    }
 
 
 

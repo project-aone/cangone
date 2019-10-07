@@ -242,7 +242,6 @@ namespace Popcorn.GameObjects.Persons
         void lifeagain()
         {
             playerpoint.transform.position = new Vector2(startpoint.transform.position.x, startpoint.transform.position.y);
-            base.Awake();
             GameStatus.lives--;
         }
 

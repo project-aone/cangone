@@ -125,7 +125,6 @@ namespace Popcorn.GameObjects.Elementies
 
                 case GameStates.Ended:
                     AudioManager.Instance.StopBackgroundMusic(caller: this);
-                    pausee.overd = true;
                     GameIsOver();
                     break;
 
@@ -161,9 +160,15 @@ namespace Popcorn.GameObjects.Elementies
 
         bool IsGameFinished()
         {
-            if (!player.IsAlive || endPoint.WasReachedTheEnd)
+            if (endPoint.WasReachedTheEnd)
             {
                 GameState = GameStates.Ended;
+                pausee.overd = true;
+                return true;
+            }
+            else if(!player.IsAlive)
+            {
+                pausee.die = true;
                 return true;
             }
             return false;

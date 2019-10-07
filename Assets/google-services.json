@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "446144783936",
+    "firebase_url": "https://cangone-81596039.firebaseio.com",
+    "project_id": "cangone-81596039",
+    "storage_bucket": "cangone-81596039.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:446144783936:android:a5a9bde89c53e135ba21a5",
+        "android_client_info": {
+          "package_name": "com.AONE.Cangone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "446144783936-r4cdsmq8htlv90iirklomb15lpbqkdf1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjHmjpMMECDX2q5qlMONPo3vAto_PdnzQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "446144783936-r4cdsmq8htlv90iirklomb15lpbqkdf1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
