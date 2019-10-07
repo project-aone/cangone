@@ -11,6 +11,7 @@ using ObjectsTags = Popcorn.Metadatas.Tags.Objects;
 using PersonsTags = Popcorn.Metadatas.Tags.Persons;
 using ElementiesTags = Popcorn.Metadatas.Tags.Elementies;
 using UIElementiesTags = Popcorn.Metadatas.Tags.UIElementies;
+using System;
 
 
 namespace Popcorn.GameObjects.Elementies
@@ -26,6 +27,8 @@ namespace Popcorn.GameObjects.Elementies
         [SerializeField] Times.ScenesTimes scenesTime = Times.ScenesTimes.Normal;
         [SerializeField] Text timeScreen;
         [SerializeField] Text pointScreen;
+        [SerializeField] Text killScreen;
+
         PlayerBase player;
         EndPoint endPoint;
         float time;
@@ -43,7 +46,6 @@ namespace Popcorn.GameObjects.Elementies
             GetPlayer();
             GetAndCheckElements();
             GetAudioSources();
-
             time = (float)scenesTime;
             GameState = GameStates.Paused;
         }
@@ -52,6 +54,11 @@ namespace Popcorn.GameObjects.Elementies
         {
             timeOutAudioSource = (AudioSource)Getter.ComponentInChild(this, gameObject, typeof(AudioSource), 0);
             backgroundMusic = (AudioSource)Getter.ComponentInChild(this, gameObject, typeof(AudioSource), 1);
+        }
+
+        public void offMusic()
+        {
+            backgroundMusic.mute = !backgroundMusic.mute;
         }
 
         void GetAndCheckElements()
@@ -118,6 +125,7 @@ namespace Popcorn.GameObjects.Elementies
 
                 case GameStates.Ended:
                     AudioManager.Instance.StopBackgroundMusic(caller: this);
+                    pausee.overd = true;
                     GameIsOver();
                     break;
 
@@ -148,6 +156,7 @@ namespace Popcorn.GameObjects.Elementies
         {
             timeScreen.text = ((int)time).ToString();
             pointScreen.text = GameStatus.score.ToString();
+            killScreen.text = GameStatus.kill.ToString();
         }
 
         bool IsGameFinished()

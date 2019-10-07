@@ -162,7 +162,7 @@ namespace Popcorn.GameObjects.Persons
                         { lifeagain(); }
                 else if (!contactPoint2D.collider.CompareTag(HelpersTags.WeakPoint.ToString()) && GameStatus.lives==1)
                         { Kill(jumpForce); }
-                else { ExecuteJump(jumpForce - 50);}
+                else { ExecuteJump(jumpForce - 50); GameStatus.kill++; }
 
             }
             else if (otherCollider2D.gameObject.CompareTag(ObjectsTags.Hit.ToString()))
@@ -192,7 +192,7 @@ namespace Popcorn.GameObjects.Persons
             AudioManager.Instance.PlaySoundOnce(caller: this, sound: winAudioSource);
 
             if (isJumping) { animator.SetTrigger(AnimationParameters.WinTrigger.ToString()); }
-            else { StartCoroutine(WinAnimation()); }
+            else { StartCoroutine(WinAnimation());}
         }
 
         IEnumerator WinAnimation()
@@ -236,7 +236,6 @@ namespace Popcorn.GameObjects.Persons
             spriteRenderer.sortingOrder = (int)Layers.OrdersInDefaultLayer.Max;
             //21.09.19 Raihan untuk kembali ke awal jika player mati
             yield return new WaitForSeconds(3);
-            GameStatus.score = 0;
         }
 
         //Win, 23/09/209, change player position back to start

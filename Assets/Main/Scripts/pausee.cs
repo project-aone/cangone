@@ -4,14 +4,23 @@ using UnityEngine;
 using Proyecto26;
 using UnityEngine.UI;
 using GameBehavior= Popcorn.GameObjects.Elementies.GameBehavior;
+using Popcorn.GameObjects.Objects;
 public class pausee : MonoBehaviour
 {
+    //for showing score and kill at the end of the game
+    [SerializeField] Text pointEnd;
+    [SerializeField] Text killEnd;
+
+//    public AudioSource
+
     //pause object
     public Canvas PauseCanvas;
     public Canvas DBcanvas;
+    public Canvas OverCanvas;
     public Button PauseButton;
-    public Button JumpButton;
+
     private bool paused = false;
+    public static bool overd;
 
     //score object
     public InputField playertext;
@@ -21,7 +30,8 @@ public class pausee : MonoBehaviour
 
     //lives object
     public List<Image> lives = new List<Image>(3);
-    Text txt_score, txt_high, txt_level;
+    public List<Image> stars = new List<Image>(3);
+
 
     //initialitation
     private void Start()
@@ -29,22 +39,13 @@ public class pausee : MonoBehaviour
         //Win, 22/09/2019, for pause
         PauseCanvas.enabled = false;
         DBcanvas.enabled = false;
+        OverCanvas.enabled=false;
         PauseButton.enabled = true;
-        JumpButton.enabled = true;
-         
-        //Win, 23/09/2019, for showing live object
-        txt_score = GetComponentsInChildren<Text>()[1];
-        txt_high = GetComponentsInChildren<Text>()[0];
-        txt_level = GetComponentsInChildren<Text>()[2];
+        overd = false;
 
-               for (int i = 0; i < 3 - GameStatus.lives; i++)
-               {
-                   Destroy(lives[lives.Count - 1]);
-                   lives.RemoveAt(lives.Count - 1);
-               }
-        
+        over();
     }
-    private void Update()
+    void Update()
     {
         //Rayhan, 22/09/2019 for add data
         if(GameBehavior.GameState==GameBehavior.GameStates.Ended && GameStatus.lives==0)
@@ -69,8 +70,9 @@ public class pausee : MonoBehaviour
                 Destroy(lives[0]);
                 lives.RemoveAt(0);
                 break;
-
         }
+
+        over();
     }
 
     public void OnSumbit()
@@ -90,11 +92,11 @@ public class pausee : MonoBehaviour
     {
         if (paused)
         {
+            
             PauseCanvas.enabled = false;
             Time.timeScale = 1;
             paused = false;
             PauseButton.enabled = true;
-            JumpButton.enabled = true;
         }
         else
         {
@@ -102,9 +104,34 @@ public class pausee : MonoBehaviour
             Time.timeScale = 0;
             paused = true;
             PauseButton.enabled = false;
-            JumpButton.enabled = false;
         }
         
     }
 
+    public void over()
+    {
+        if (overd)
+        {
+            StartCoroutine("waitForSec");
+        }
+    }
+
+    IEnumerator waitForSec()
+    {
+        yield return new WaitForSeconds(4);
+        OverCanvas.enabled = true;
+        PauseCanvas.enabled = false;
+        PauseButton.enabled = false;
+        countStars();
+    }
+
+    void countStars()
+    {
+     if(GameStatus.kill < 4 && GameStatus.score < 5)
+        {
+            Destroy(stars[2]);
+            stars.RemoveAt(2);
+        }  
+    }
+    
 }

@@ -8,12 +8,12 @@ TextureImporter:
     21300006: item_obstacle_3
     21300008: item_obstacle_4
     21300010: item_obstacle_5
-    21300012: item_obstacle_6
-    21300014: item_obstacle_7
+    21300012: star
+    21300014: coin
     21300016: item_obstacle_8
     21300018: item_obstacle_9
     21300020: flower
-    21300022: item_obstacle_11
+    21300022: bush
     21300024: item_obstacle_12
     21300026: item_obstacle_13
   externalObjects: {}
@@ -240,7 +240,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: item_obstacle_6
+      name: star
       rect:
         serializedVersion: 2
         x: 0
@@ -260,7 +260,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: item_obstacle_7
+      name: coin
       rect:
         serializedVersion: 2
         x: 913
@@ -340,11 +340,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: item_obstacle_11
+      name: bush
       rect:
         serializedVersion: 2
         x: 940
-        y: 1740
+        y: 1732
         width: 649
         height: 638
       alignment: 0
@@ -388,7 +388,7 @@ TextureImporter:
         width: 78
         height: 93
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
